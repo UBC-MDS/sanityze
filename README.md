@@ -1,4 +1,4 @@
-[![ci-cd](https://github.com/UBC-MDS/sanityze/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/UBC-MDS/sanityze/actions/workflows/ci-cd.yml)
+[![ci-cd](https://github.com/UBC-MDS/sanityze/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/UBC-MDS/sanityze/actions/workflows/ci-cd.yml) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 # sanityze
 
 Python package to help datascientists remove or redact Personal Identifiable Information (PII) 
