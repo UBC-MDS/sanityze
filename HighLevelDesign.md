@@ -22,7 +22,7 @@ import sanityze
 import pandas as pd
 
 cleanser = sanityze.Cleanser()
-cleanser.add_spotter(sanityze.SINSpotter())
+cleanser.add_spotter(sanityze.SINSpotter(),hash=True)
 cleanser.add_spotter(sanityze.EmailSpotter())
 df = pd.DataFrame(...)
 cleansed_df = cleanser.clean(df)
@@ -33,8 +33,9 @@ cleansed_df = cleanser.clean(df)
 ### 3.1 Cleanser
 Cleanser is a class that handles the sanitization of the data. Users can add/remove spotters to the cleanser, which will be used to identify PII in the data. The cleanser can then be used to cleanse the data. It has the following methods:
 1. `add_spotter(spotter)` - adds a spotter to the cleanser
-2. `remove_spotter(spotter)` - removes a spotter from the cleanser
-3. `clean(pd.DataFrame)` - takes a DataFrame and cleanses it, returning a new cleansed DataFrame
+2. `add_all_spotters()` - adds all default spotters to the cleanser
+3. `remove_spotter(spotter)` - removes a spotter from the cleanser
+4. `clean(pd.DataFrame)` - takes a DataFrame and cleanses it, returning a new cleansed DataFrame
 
 ### 3.1 Spotters
 Spotters are classes that handle the identification of PII in the data. The package comes with a number of default spotters, as subclasses. Users can also create their own spotters, as long as they implement the `Spotter` class.
