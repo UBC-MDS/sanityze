@@ -4,15 +4,15 @@ class Spotter():
 
     Attributes
     ----------
-    name : str
-        name of the spotter
+    uid : str
+        uid of the spotter
     hashSpotted : bool, optional
         False by default, whether to hash or replace the spotted sensitive information
 
     Methods
     -------
-    getSpotterName()
-        return the Spotter name
+    getSpotterUID()
+        return the Spotter uid
     
     isHashSpotted()
         return whether the hashSpotted is True or False
@@ -22,20 +22,20 @@ class Spotter():
         otherwise, replace it with some default value
     """
     # please add the following line in the subclass
-    # spotter_name = "<name of the spotter>"
-    def __init__(self, name: str, hashSpotted=False):
-        self.name = name
+    # spotter_uid = "<uid of the spotter>"
+    def __init__(self, uid: str, hashSpotted=False):
+        self.uid = uid
         self.hashSpotted = hashSpotted
 
-    def getSpotterName(self) -> str:
-        """Getting the spotter name
+    def getSpotterUID(self) -> str:
+        """Getting the spotter uid
 
         Returns
         -------
-        self.name : str
-            the spotter name
+        self.uid : str
+            the spotter uid
         """
-        return self.name
+        return self.uid
 
     def isHashSpotted(self) -> bool:
         """Getting the value of hashSpotted
