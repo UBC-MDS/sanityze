@@ -71,6 +71,28 @@ class Spotter():
 
 
 class CreditCardSpotter(Spotter):
+    """
+    The Credit Card Spotter Subclass
+
+    Attributes
+    ----------
+    uid : str
+        uid of the spotter, "CREDITCARD"
+    hashSpotted : bool, optional
+        False by default, whether to hash or replace the spotted sensitive information
+
+    Methods
+    -------
+    getSpotterUID()
+        return the Spotter uid, "CREDITCARD"
+    
+    isHashSpotted()
+        return whether the hashSpotted is True or False
+    
+    process(text)
+        process the text depending on the hashSpotted value, if hashSpotted is True, replace the spotted credit card number with hash
+        otherwise, replace the spotted credit card number with some default value
+    """
     def getSpotterUID(self) -> str:
         """Getting the credit card spotter uid
 
@@ -103,6 +125,28 @@ class CreditCardSpotter(Spotter):
         pass
 
 class EmailSpotter(Spotter):
+    """
+    The Email Spotter Subclass
+
+    Attributes
+    ----------
+    uid : str
+        uid of the spotter, "EMAILADDRS"
+    hashSpotted : bool, optional
+        False by default, whether to hash or replace the spotted sensitive information
+
+    Methods
+    -------
+    getSpotterUID()
+        return the Spotter uid, "EMAILADDRS"
+    
+    isHashSpotted()
+        return whether the hashSpotted is True or False
+    
+    process(text)
+        process the text depending on the hashSpotted value, if hashSpotted is True, replace the spotted email with hash
+        otherwise, replace the spotted email with some default value
+    """
     def getSpotterUID(self) -> str:
         """Getting the email spotter uid
 
