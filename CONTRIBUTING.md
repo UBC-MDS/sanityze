@@ -15,7 +15,7 @@ If you are reporting a bug, please include:
 
 ### Fix Bugs
 
-Look through the GitHub issues for bugs. Anything tagged with "bug" and "help
+Look through the GitHub issues for bugs and Project. Anything tagged with "bug" and "help
 wanted" is open to whoever wants to implement it.
 
 ### Implement Features
@@ -36,11 +36,11 @@ If you are proposing a feature:
 * Explain in detail how it would work.
 * Keep the scope as narrow as possible, to make it easier to implement.
 * Remember that this is a volunteer-driven project, and that contributions
-  are welcome :)
+  are welcome
 
 ## Get Started!
 
-Ready to contribute? Here's how to set up `sanityze` for local development.
+Ready to contribute? Here's how to set up `sanityze` for local development. We use the `poetry` package manager to manage dependencies, and github workflows to run tests.
 
 1. Download a copy of `sanityze` locally.
 2. Install `sanityze` using `poetry`:
