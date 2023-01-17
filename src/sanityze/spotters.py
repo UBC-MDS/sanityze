@@ -1,3 +1,6 @@
+import hashlib
+import re
+
 class Spotter():
     """
     The Spotter interface to be implemented
@@ -171,9 +174,30 @@ class EmailSpotter(Spotter):
         new_text : str
             the text with email replaced by a hash or the default string value
         """
-        # spot email using regex / other packages
-        # if self.isHashSpotted():
-        #     new_text = text.replace_hash()
-        # else:
-        #     new_text = text.replace_dummy()
-        pass
+        # base preprocessing (if needed)
+        
+        dummy_text = "{{EMAILADDRS}}"
+        
+        # email regex (adapted from [https://scrubadub.readthedocs.io/en/stable/_modules/scrubadub/detectors/email.html#EmailDetector:~:text=regex%20%3D%20re,.IGNORECASE)])
+        regex = re.compile((
+            r"\b[a-z0-9!#$%&'*+\/=?^_`{|}~-]"             # start with this character
+            r"(?:"
+            r"    [\.a-z0-9!#$%&'*+\/=?^_`{|}~-]{0,62}"   # valid next characters (max length 64 chars before @)
+            r"    [a-z0-9!#$%&'*+\/=?^_`{|}~-]"           # end with this character
+            r")?"
+            r"(?:@|\sat\s)"                               # @ or the word 'at' instead
+            r"[a-z0-9]"                                   # domain starts like this
+            r"(?:"
+            r"    (?=[a-z0-9-]*(\.|\sdot\s))"             # A lookahead to ensure there is a dot in the domain
+            r"    (?:\.|\sdot\s|[a-z0-9-]){0,251}"        # might have a '.' or the word 'dot' instead
+            r"    [a-z0-9]"                               # domain has max 253 chars, ends with one of these
+            r")+\b"
+        ), re.VERBOSE | re.IGNORECASE)
+        
+        if self.isHashSpotted():            
+            text = re.sub(regex, lambda x:hashlib.md5(x.group().encode()).hexdigest(), text)
+            new_text = text
+        else:
+            new_text = re.sub(regex, dummy_text, text)
+
+        return new_text
