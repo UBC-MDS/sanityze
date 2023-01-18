@@ -1,3 +1,5 @@
+import re
+import hashlib
 class Spotter():
     """
     The Spotter interface to be implemented
@@ -117,12 +119,33 @@ class CreditCardSpotter(Spotter):
         new_text : str
             the text with credit card number replaced by a hash or the default string value
         """
-        # spot credit card using regex / other packages
-        # if self.isHashSpotted():
-        #     new_text = text.replace_hash()
-        # else:
-        #     new_text = text.replace_dummy()
-        pass
+        # Regexes from:
+        # http://www.regular-expressions.info/creditcard.html
+
+        # taken from the alphagov fork of scrubadub: https://github.com/alphagov/scrubadub
+
+        # credit card patterns to match
+        cc_pattern = re.compile((
+            r"(?:4[0-9]{12}(?:[0-9]{3})?"  		# Visa
+            r"|(?:5[1-5][0-9]{2}"          		# MasterCard
+            r"|222[1-9]|22[3-9][0-9]|2[3-6][0-9]{2}|27[01][0-9]|2720)[0-9]{12}"
+            r"|3[47][0-9]{13}"             		# American Express
+            r"|3(?:0[0-5]|[68][0-9])[0-9]{13}"   	# Diners Club
+            r"|6(?:011|5[0-9]{2})[0-9]{12}"      	# Discover
+            r"|(?:2131|1800|35\d{3})\d{11})"      	# JCB
+         ), re.VERBOSE)
+
+        # sets replacement value based on output of isHashSpotted()
+        if self.isHashSpotted():
+            replacement = hashlib.md5(text.encode()).hexdigest()
+        else:
+            replacement = self.getSpotterUID()
+        
+        # replaces cc number with replacement value
+        clean_str = re.sub(cc_pattern, replacement, text)
+
+        return(clean_str)
+
 
 class EmailSpotter(Spotter):
     """
