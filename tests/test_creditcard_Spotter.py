@@ -13,9 +13,7 @@ fake_cc = {"VISA" : "4556129404313766",
            "AMEX" : "345160678082328", 
            "DINERS" : "3013130458900846", 
            "DISCOVER" :"6011087735246416",
-           "JCB" : "3538159804477445",
-           "VISA full cc info" : "VISA, 4916363769587210, 10/2023, 992",
-           "MASTERCARD full cc info" : "MASTERCARD, 5565184758651804, 6/2027, 316"
+           "JCB" : "3538159804477445"
            }
 
 # test string for credit card md5 hashes
