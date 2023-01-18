@@ -1,4 +1,5 @@
 import pandas as pd
+from sanityze.spotters import * 
 
 class Cleanser:
     """
@@ -15,51 +16,104 @@ class Cleanser:
     
     """
     def __init__(self, include_default_spotters=True, hash_spotted = False):
-        pass
+        if (include_default_spotters):
+            self.chain = [EmailSpotter(hash_spotted),CreditCardSpotter(hash_spotted)]
+        else:
+            self.chain = []
     
-    """
-    Add a specific spotter to the Cleanser
-    
-    Parameters
-    ----------
-    spotter : Spotter
-        A subclass of Spotter to add to the Cleanser. Note that spotters are added
-        at the end of the list. Adding the same spotter will return False
-
-    Returns
-    -------
-    True if the spotter was added, False if it was not added.    
-    """
     def add_spotter(self, spotter) -> bool:
-        pass
-    
-    """
-    Remove a specific spotter from the Cleanser using the spotter's id
-    
-    Parameters
-    ----------
-    spotter_id : str
-        The id of the spotter to remove
-    
-    Returns
-    -------
-    True if the spotter was removed, False if it was not removed.
-    """
-    def remove_spotter(self, spotter_id) -> bool:
-        pass
-    
-    """
-    Sanitizes the data frame using the spotters added to the Cleanser
-    
-    Parameters
-    ----------
-    df : pd.DataFrame
-        The data frame to sanitize
+        """
+        Add a specific spotter to the Cleanser
         
-    Returns
-    -------
-    The sanitized data frame 
+        Parameters
+        ----------
+        spotter : Spotter
+            A subclass of Spotter to add to the Cleanser. Note that spotters are added
+            at the end of the list. Adding the same spotter will return False
+
+        Returns
+        -------
+        True if the spotter was added, False if it was not added.    
+        """
+        if (spotter is None):
+            raise ValueError("spotter cannot be None in Cleanser.add_spotter()")
+        if (spotter in self.chain):
+            return False
+        for s in self.chain:
+            if (s.getSpotterUID() == spotter.getSpotterUID()):
+                return False
+        self.chain.append(spotter)
     
-    """
-    def clean(self, df: pd.DataFrame) -> pd.DataFrame:
-        pass
+    def remove_spotter(self, spotter_id) -> bool:
+        """
+        Remove a specific spotter from the Cleanser using the spotter's id
+        
+        Parameters
+        ----------
+        spotter_id : str
+            The id of the spotter to remove
+        verbose: bool, optional
+            If True, the spotter will print out debug information. The default is False.
+        
+        Returns
+        -------
+        True if the spotter was removed, False if it was not removed.
+        """
+        if (spotter_id is None):
+            raise ValueError("spotter_id cannot be None in Cleanser.remove_spotter()")
+        for s in self.chain:
+            if (s.getSpotterUID() == spotter_id):
+                self.chain.remove(s)
+                return True
+        return False
+    
+    def _log(self, message: str, verbose: bool) -> None:
+        """
+        Internal utility function to log messages to the console
+        
+        Parameters
+        ----------
+        verbose: bool
+            The verbosity of the log
+        message : str
+            The message to log
+        
+        Returns
+        -------
+        None
+        """
+        if (verbose):
+            print(f"- {message}")
+
+    def clean(self, df: pd.DataFrame, verbose=False) -> pd.DataFrame:
+        """
+        Sanitizes the data frame using the spotters added to the Cleanser
+        
+        Parameters
+        ----------
+        df : pd.DataFrame
+            The data frame to sanitize
+            
+        Returns
+        -------
+        The sanitized data frame 
+        
+        """
+        if (df is None):
+            raise ValueError("df cannot be None in clean")
+        # we only operate on a copy of the data frame, leaving 
+        # the original data frame intact
+        df_copy = df.copy() 
+        # iterate thru the data frame cells
+        row_len, col_len = df.shape
+        for i in range(row_len):
+            for j in range(col_len):
+                cell = df.iat[i,j]
+                # iterate thru the spotters and redact content
+                # if the cell is of type string
+                if isinstance(cell, str):
+                    for spotter in self.chain:
+                        cell = spotter.process(cell)
+                # update the cell in the copy of the data frame
+                df_copy.iat[i,j] = cell
+        return df_copy
