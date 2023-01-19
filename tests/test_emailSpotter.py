@@ -1,16 +1,16 @@
-from sanityze import sanityze
-from sanityze import spotters
+from sanityze.cleanser import *
+from sanityze.spotters import *
 
 def test_email_spotter():
     # Initialize an email spotter object
-    emailSpotter_hash = spotters.EmailSpotter("EMAILADDRS", True)
+    emailSpotter_hash = EmailSpotter("EMAILADDRS", True)
 
     # test case 1: replace email with hash (catching 2 emails)
     assert 'My email address is 4b06d8d4bc9491edb00684048e40c4d8 and 967f3839a35c04041ea6e75b7a917b04 Thank you.' \
         == emailSpotter_hash.process("My email address is caesar@gmail.com and aaaa@yahoo.mail.com Thank you.")
 
     # test case 2: replace email with fixed string
-    emailSpotter_notHash = spotters.EmailSpotter("", False)
+    emailSpotter_notHash = EmailSpotter("", False)
     assert 'My email address is EMAILADDRS and EMAILADDRS Thank you.' \
         == emailSpotter_notHash.process("My email address is caesar@gmail.com and aaaa@yahoo.mail.com Thank you.")
 

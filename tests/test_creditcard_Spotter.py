@@ -1,10 +1,10 @@
-from sanityze import sanityze
-from sanityze import spotters
+from sanityze.cleanser import *
+from sanityze.spotters import *
 
 #create spotter objects for testing
-cc_Spotter_hash = spotters.CreditCardSpotter(uid="CREDITCARD", hashSpotted=True)
+cc_Spotter_hash = CreditCardSpotter(uid="CREDITCARD", hashSpotted=True)
 
-cc_Spotter_no_hash = spotters.CreditCardSpotter(uid="CREDITCARD", hashSpotted=False)
+cc_Spotter_no_hash = CreditCardSpotter(uid="CREDITCARD", hashSpotted=False)
 
 # test string to detect credit card presence, fake credit card numbers generated from: https://www.creditcardvalidator.org/generator
 
