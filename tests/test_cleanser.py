@@ -1,6 +1,19 @@
 from sanityze.cleanser import *
 from sanityze.spotters import *
 
+input_data = {'product_name': ['my email is foo@gaga.com', 
+                            'Okay', 
+                            'my number is 4556129404313766 CCV'],
+        'price': [1200, 150, 300]
+    }
+input_df = pd.DataFrame(input_data)
+expected_data = {'product_name': ['my email is EMAILADDRS', 
+                            'Okay', 
+                            'my number is CREDITCARD CCV'],
+        'price': [1200, 150, 300]
+    }
+expected_df = pd.DataFrame(expected_data)
+
 # check that the Cleanser class is initialized property
 def test_cleanser_init_default():
     c = Cleanser()
@@ -44,7 +57,7 @@ def test_cleanser_add_remove_all():
     assert(len(c.chain) == 1,"Cleanser should one spotter in the chain")
     c.remove_spotter('CREDITCARDS')
     assert(len(c.chain) == 1,"Cleanser should no spotters in the chain")
-
+# test adding duplicate spotters
 def test_add_duplicate_spotters():
     c = Cleanser(include_default_spotters=False)
     s1 = EmailSpotter("EMAILS",False)
@@ -54,4 +67,9 @@ def test_add_duplicate_spotters():
     assert(a1 == True,"Cleanser should have added the first spotter")
     assert(a2 == False,"Cleanser should not have added the second spotter")
     assert(len(c.chain) == 0,"Cleanser should have not spotters in the chain")
-    
+
+# test basic clean   
+def test_basic_clean():
+    c = Cleanser(include_default_spotters=True)
+    output_df = c.clean(input_df)
+    assert(output_df.equals(expected_df),"Cleanser should have cleaned the data properly")
