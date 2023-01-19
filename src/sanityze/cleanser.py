@@ -17,7 +17,7 @@ class Cleanser:
     """
     def __init__(self, include_default_spotters=True, hash_spotted = False):
         if (include_default_spotters):
-            self.chain = [EmailSpotter(hash_spotted),CreditCardSpotter(hash_spotted)]
+            self.chain = [EmailSpotter("DEFAULTEMAILS",hash_spotted),CreditCardSpotter("DEFAULCCS",hash_spotted)]
         else:
             self.chain = []
     
@@ -113,7 +113,9 @@ class Cleanser:
                 # if the cell is of type string
                 if isinstance(cell, str):
                     for spotter in self.chain:
+                        self._log(f"{spotter.getSpotterUID()}: Processing cell {cell} ", verbose)
                         cell = spotter.process(cell)
+                        self._log(f"{spotter.getSpotterUID()}: Processed cell {cell} ", verbose)
                 # update the cell in the copy of the data frame
                 df_copy.iat[i,j] = cell
         return df_copy
