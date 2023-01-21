@@ -33,7 +33,14 @@ class Cleanser:
 
         Returns
         -------
-        True if the spotter was added, False if it was not added.    
+        True if the spotter was added, False if it was not added.   
+
+        Examples
+        --------
+        >>> c = Cleanser(include_default_spotters=False)
+        >>> s1 = EmailSpotter("EMAILS",True)
+        >>> c.add_spotter(s1)
+
         """
         if (spotter is None):
             raise ValueError("spotter cannot be None in Cleanser.add_spotter()")
@@ -58,6 +65,13 @@ class Cleanser:
         Returns
         -------
         True if the spotter was removed, False if it was not removed.
+
+        Examples
+        --------
+        >>> c = Cleanser(include_default_spotters=False)
+        >>> s1 = EmailSpotter("EMAILADDRS",True)
+        >>> c.remove_spotter("EMAILADDRS")
+
         """
         if (spotter_id is None):
             raise ValueError("spotter_id cannot be None in Cleanser.remove_spotter()")
@@ -81,6 +95,11 @@ class Cleanser:
         Returns
         -------
         None
+
+        Examples
+        --------
+        (called by clean())
+
         """
         if (verbose):
             print(f"- {message}")
@@ -97,6 +116,19 @@ class Cleanser:
         Returns
         -------
         The sanitized data frame 
+        
+        Examples
+        --------
+        >>> df = pd.DataFrame(data = {'product_name': ['laptop', 'printer foo@gaga.com', 'tablet', 'desk 5555 5555 5555 4444', 'chair'],
+                                    'price': [1200, 150, 300, 450, 200]})
+        >>> c = Cleanser()
+        >>> c.clean(df, verbose=False)
+            product_name	price
+        0	laptop	1200
+        1	printer EMAILADDRS	150
+        2	tablet	300
+        3	desk 5555 5555 5555 4444	450
+        4	chair	200
         
         """
         if (df is None):
