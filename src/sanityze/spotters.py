@@ -23,6 +23,12 @@ class Spotter():
     process(text)
         process the text depending on the hashSpotted value, if it is hash, replace it with hash
         otherwise, replace it with some default value
+
+    Examples
+    --------
+    Spotter should be initialized in a subclass level, therefore, skipping examples in the parent class
+    >>> 
+
     """
     # please add the following line in the subclass
     # spotter_uid = "<uid of the spotter>"
@@ -37,6 +43,11 @@ class Spotter():
         -------
         self.uid : str
             the spotter uid
+
+        Examples
+        --------
+        >>> sub_spotter.getSpotterUID()
+        "<sub class spotter UID>"
         """
         return self.uid
 
@@ -47,6 +58,11 @@ class Spotter():
         -------
         self.hashSpotted : bool
             the Truth value of hashSpotted
+        
+        Examples
+        --------
+        >>> sub_spotter.isHashSpotted()
+        TRUE
         """
         return self.hashSpotted
 
@@ -62,7 +78,21 @@ class Spotter():
         Returns
         -------
         new_text : str
-            
+
+        Examples
+        --------
+        >>> df = pd.DataFrame(data = {'product_name': ['laptop', 'printer foo@gaga.com', 'tablet', 'desk 5555 5555 5555 4444', 'chair'],
+                                    'price': [1200, 150, 300, 450, 200]})
+        >>> c = Cleanser()
+        >>> c.clean(df, verbose=False)
+            product_name	price
+        0	laptop	1200
+        1	printer EMAILADDRS	150
+        2	tablet	300
+        3	desk 5555 5555 5555 4444	450
+        4	chair	200
+
+        
         """
         # # to be implemented in the specific spotter level
         # if self.isHashSpotted():
@@ -95,6 +125,13 @@ class CreditCardSpotter(Spotter):
     process(text)
         process the text depending on the hashSpotted value, if hashSpotted is True, replace the spotted credit card number with hash
         otherwise, replace the spotted credit card number with some default value
+    
+    Examples
+    --------
+    >>> CreditCardSpotter("CREDITCARDS",True)
+    <sanityze.spotters.CreditCardSpotter object at 0x000001207F7B5880>
+
+    
     """
     def getSpotterUID(self) -> str:
         """Getting the credit card spotter uid
@@ -103,6 +140,13 @@ class CreditCardSpotter(Spotter):
         -------
         "CREDITCARD" : str
             a fixed str value for CreditCardSpotter
+
+        Examples
+        --------
+        >>> cc = CreditCardSpotter("CREDITCARDS",True)
+        >>> cc.getSpotterUID()
+        CREDITCARD
+        
         """
         return "CREDITCARD"
 
@@ -119,6 +163,13 @@ class CreditCardSpotter(Spotter):
         -------
         new_text : str
             the text with credit card number replaced by a hash or the default string value
+        
+        Examples
+        --------
+        >>> cc = CreditCardSpotter("CREDITCARDS", False)
+        >>> cc.process("4556129404313766")
+        CREDITCARD
+
         """
         # Regexes from:
         # http://www.regular-expressions.info/creditcard.html
@@ -178,6 +229,13 @@ class EmailSpotter(Spotter):
         -------
         "EMAILADDRS" : str
             a fixed str value for EmailSpotter
+
+        Examples
+        --------
+        >>> ee = EmailSpotter("EMAILS", False)
+        >>> ee.getSpotterUID()
+        EMAILADDRS
+
         """
         return "EMAILADDRS"
 
@@ -194,11 +252,16 @@ class EmailSpotter(Spotter):
         -------
         new_text : str
             the text with email replaced by a hash or the default string value
+
+        Examples
+        --------
+        >>> ee = EmailSpotter("EMAILS", False)
+        >>> ee.process("abcd1234@gmail.com")
+        EMAILADDRS
+
         """
         # base preprocessing (if needed)
-        
-        dummy_text = "EMAILADDRS"
-        
+                
         # email regex (adapted from [https://scrubadub.readthedocs.io/en/stable/_modules/scrubadub/detectors/email.html#EmailDetector:~:text=regex%20%3D%20re,.IGNORECASE)])
         regex = re.compile((
             r"\b[a-z0-9!#$%&'*+\/=?^_`{|}~-]"             # start with this character
@@ -219,6 +282,6 @@ class EmailSpotter(Spotter):
             text = re.sub(regex, lambda x:hashlib.md5(x.group().encode()).hexdigest(), text)
             new_text = text
         else:
-            new_text = re.sub(regex, dummy_text, text)
+            new_text = re.sub(regex, self.getSpotterUID(), text)
 
         return new_text
