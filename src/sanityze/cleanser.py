@@ -101,6 +101,8 @@ class Cleanser:
         """
         if (df is None):
             raise ValueError("df cannot be None in clean")
+        if not isinstance(df,pd.DataFrame):
+            raise TypeError("df must be a pandas DataFrame in clean")
         # we only operate on a copy of the data frame, leaving 
         # the original data frame intact
         df_copy = df.copy() 

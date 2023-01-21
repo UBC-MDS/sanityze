@@ -1,5 +1,6 @@
 from sanityze.cleanser import *
 from sanityze.spotters import *
+import pytest 
 
 input_data = {'product_name': ['my email is foo@gaga.com', 
                             'Okay', 
@@ -57,6 +58,7 @@ def test_cleanser_add_remove_all():
     assert(len(c.chain) == 1,"Cleanser should one spotter in the chain")
     c.remove_spotter('CREDITCARDS')
     assert(len(c.chain) == 1,"Cleanser should no spotters in the chain")
+    
 # test adding duplicate spotters
 def test_add_duplicate_spotters():
     c = Cleanser(include_default_spotters=False)
@@ -73,3 +75,43 @@ def test_basic_clean():
     c = Cleanser(include_default_spotters=True)
     output_df = c.clean(input_df)
     assert(output_df.equals(expected_df),"Cleanser should have cleaned the data properly")
+    
+# test adding None spotter
+def test_add_none_spotter():
+    with pytest.raises(ValueError):
+        c = Cleanser(include_default_spotters=False)
+        a = c.add_spotter(None)
+        
+# test removing None spotter
+def test_remoe_none_spotter():
+    with pytest.raises(ValueError):
+        c = Cleanser(include_default_spotters=False)
+        a = c.remove_spotter(None)
+        
+# test adding duplicate spotters
+def test_add_duplicate_spotters():
+    c = Cleanser(include_default_spotters=False)
+    s1 = EmailSpotter("EMAILS",False)
+    a1 = c.add_spotter(s1)
+    a2 = c.add_spotter(s1)
+    assert(a1 == True,"Cleanser should have added the first spotter")
+    assert(a2 == False,"Cleanser should not have added the second spotter")
+    assert(len(c.chain) == 0,"Cleanser should have not spotters in the chain")
+    
+# test passing a non-DataFrame to clean
+def test_clean_with_non_dataframe():
+    c = Cleanser(include_default_spotters=True)
+    with pytest.raises(TypeError):
+        output_df = c.clean("foo")
+        
+# utility function to test the log
+def test_print_log_1():
+    c = Cleanser(include_default_spotters=True)
+    c._log("foo",True)
+    assert(True,"Cleanser should have printed the log properly")
+    
+# utility function to test the log
+def test_print_log_2():
+    c = Cleanser(include_default_spotters=True)
+    c._log("foo",False)
+    assert(True,"Cleanser should have not printed the log properly")
