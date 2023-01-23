@@ -38,12 +38,8 @@ jobs:
         run: poetry run pytest tests/ --cov=sanityze --cov-report=xml
 
       - name: Use Codecov to track coverage
-        uses: codecov/codecov-action@v3
+        uses: codecov/codecov-action@v2
         with:
-          # token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
-          # flags: unittests # optional
-          # version: "v0.1.15"
-          # name:  sanityze # optional
           files: ./coverage.xml   # coverage report
 
       - name: Build documentation
