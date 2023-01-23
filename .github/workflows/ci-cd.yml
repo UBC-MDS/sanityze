@@ -40,10 +40,10 @@ jobs:
       - name: Use Codecov to track coverage
         uses: codecov/codecov-action@v3
         with:
-          token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
-          flags: unittests # optional
-          version: "v0.1.15"
-          name:  sanityze # optional
+          # token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
+          # flags: unittests # optional
+          # version: "v0.1.15"
+          # name:  sanityze # optional
           files: ./coverage.xml   # coverage report
 
       - name: Build documentation
