@@ -42,6 +42,7 @@ jobs:
         with:
           token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
           flags: unittests # optional
+          version: "v0.1.15"
           name:  sanityze # optional
           files: ./coverage.xml   # coverage report
 
