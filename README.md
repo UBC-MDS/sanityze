@@ -92,7 +92,8 @@ Interested in contributing? Check out the [contributing guidelines](CONTRIBUTING
 `sanityze` was created with [`cookiecutter`](https://cookiecutter.readthedocs.io/en/latest/) and the `py-pkgs-cookiecutter` [template](https://github.com/py-pkgs/py-pkgs-cookiecutter).
 
 ## Quick Links
-  * [Documentation](https://ubc-mds.github.io/sanityze/)
+  * [Read the Docs](https://sanityze.readthedocs.io/en/latest/?badge=latest)
+  * [Documentation on GH](https://ubc-mds.github.io/sanityze/)
   * [Kanban Board](https://github.com/orgs/UBC-MDS/projects/15)
   * [Issues](https://github.com/UBC-MDS/sanityze/issues)
   * [High Level Design](HighLevelDesign.md) 
