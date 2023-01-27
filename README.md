@@ -1,4 +1,4 @@
-[![ci-cd](https://github.com/UBC-MDS/sanityze/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/UBC-MDS/sanityze/actions/workflows/ci-cd.yml) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![ci-cd](https://github.com/UBC-MDS/sanityze/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/UBC-MDS/sanityze/actions/workflows/ci-cd.yml) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![Documentation Status](https://readthedocs.org/projects/sanityze/badge/?version=latest)](https://sanityze.readthedocs.io/en/latest/?badge=latest)
 # sanityze
 
 ![](logo.png)
