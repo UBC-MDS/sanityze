@@ -92,6 +92,7 @@ Interested in contributing? Check out the [contributing guidelines](CONTRIBUTING
 `sanityze` was created with [`cookiecutter`](https://cookiecutter.readthedocs.io/en/latest/) and the `py-pkgs-cookiecutter` [template](https://github.com/py-pkgs/py-pkgs-cookiecutter).
 
 ## Quick Links
+  * [PyPI](https://pypi.org/project/sanityze/)
   * [Read the Docs](https://sanityze.readthedocs.io/en/latest/?badge=latest)
   * [Documentation on GH](https://ubc-mds.github.io/sanityze/)
   * [Kanban Board](https://github.com/orgs/UBC-MDS/projects/15)
@@ -100,4 +101,3 @@ Interested in contributing? Check out the [contributing guidelines](CONTRIBUTING
   * [Contributing Guidelines](CONTRIBUTING.md)
   * [Code of Conduct](CODE_OF_CONDUCT.md)
   * [License](LICENSE)
-
