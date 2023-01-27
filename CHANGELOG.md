@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v0.1.3 (2023-01-27)
+### Documentation
+* Add PyPI badge ([`f1a7593`](https://github.com/UBC-MDS/sanityze/commit/f1a75938f11e0d3425f847e28bfee338b39f31f5))
+
 ## v0.1.2 (2023-01-27)
 ### Documentation
 * Adding links to PyPI and ReadTheDocs ([`a402d4f`](https://github.com/UBC-MDS/sanityze/commit/a402d4f7372a40f218e9b842f0b02432d50d9c86))
