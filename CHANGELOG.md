@@ -2,6 +2,9 @@
 
 <!--next-version-placeholder-->
 
+## v1.0.1 (2023-02-04)
+
+
 ## v1.0.0 (2023-02-04)
 ### Feature
 * Major release bump ([`7e4ea82`](https://github.com/UBC-MDS/sanityze/commit/7e4ea82d1cbd0b382e0d155e52f03b3a58409fac))

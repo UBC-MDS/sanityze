@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "sanityze"
-version = "1.0.0"
+version = "1.0.1"
 description = "Python package to help datascientists remove or redact Personal Identifiable Information (PII) "
 authors = ["Caesar Wong, Jonah Hamilton and Tony Zoght"]
 license = "MIT"
