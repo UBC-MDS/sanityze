@@ -2,6 +2,13 @@
 
 <!--next-version-placeholder-->
 
+## v1.0.0 (2023-02-04)
+### Feature
+* Major release bump ([`7e4ea82`](https://github.com/UBC-MDS/sanityze/commit/7e4ea82d1cbd0b382e0d155e52f03b3a58409fac))
+
+### Breaking
+* version 1.0.0 ([`7e4ea82`](https://github.com/UBC-MDS/sanityze/commit/7e4ea82d1cbd0b382e0d155e52f03b3a58409fac))
+
 ## v0.1.3 (2023-01-27)
 ### Documentation
 * Add PyPI badge ([`f1a7593`](https://github.com/UBC-MDS/sanityze/commit/f1a75938f11e0d3425f847e28bfee338b39f31f5))
